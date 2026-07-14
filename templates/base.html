@@ -9,6 +9,36 @@
     <link rel="stylesheet" href="https://minima.namishh.com/dist/minima.min.css" />
     <script defer src="https://minima.namishh.com/dist/minima.min.js"></script>
     <style>
+        :root {
+            --color-bg: #f0f0f0;
+            --color-text: #1a1a1a;
+            --color-muted: #888888;
+            --color-border: #e5e5e5;
+            --color-surface: #f7f7f7;
+            --color-subtext: #222222;
+            --color-danger: #dc2626;
+            --color-danger-hover: #b91c1c;
+            --color-danger-bg: #fef2f2;
+            --color-danger-border: #fecaca;
+
+            --spacer: 0.625rem;
+        }
+
+        [data-theme="dark"] {
+            --color-bg: #0f0f0f;
+            --color-text: #ededed;
+            --color-subtext: #bbbbbb;
+
+            --color-danger: #f87171;
+            --color-danger-hover: #fca5a5;
+            --color-danger-bg: #451a1a;
+            --color-danger-border: #7f1d1d;
+            --color-muted: #777;
+            --color-border: #2a2a2a;
+            --color-surface: #1a1a1a;
+            --spacer: 0.625rem;
+        }
+
         .header {
             display: flex;
             justify-content: space-between;
@@ -33,6 +63,7 @@
             display: flex;
             justify-content: center;
             padding: 20px;
+            background-color: var(--color-bg);
         }
 
         .main {
@@ -49,6 +80,7 @@
             .main {
                 width: 50%;
             }
+
         }
     </style>
 </head>
@@ -60,10 +92,6 @@
             <div style="display: flex; align-items: center; gap: 20px;">
                 <img src="https://github.com/haarshmap.png" style="width: 36px; height: 36px;" alt="">
                 <a href="/" class="button-link">haarshmap</a>
-                <a href="/media/" class="button-link">media</a>
-                <a href="https://github.com/haarshmap" class="button-link">git</a>
-                <a href="https://in.linkedin.com/in/harsha-pandla-8b8040413" class="button-link">linkedin</a>
-
             </div>
             <button class="button-primary theme-btn" onclick="toggleTheme()"> theme </button>
         </div>

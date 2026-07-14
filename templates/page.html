@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<style>
+    .cards-container {
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+        gap: 20px;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .card {
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(174, 27, 27, 0.1);
+
+        flex-basis: 300px;
+        flex-grow: 1;
+    }
+</style>
+<br>
+<h1 class="title">
+    just stuff i love to consume and my recs
+</h1>
+<br>
+<h1>games</h1>
+<div class="games">
+    <div class="cards-container">
+        <div class="class">
+            <h2>Game 1</h2>
+            <p> This is game 1 </p>
+        </div>
+        <div class="class">
+            <h2>Game 2</h2>
+            <p> This is game 2 </p>
+
+        </div>
+        <div class="class">
+            <h2>Game 3</h2>
+            <p> This is game 3 </p>
+
+        </div>
+    </div>
+</div>
+<h1>Mangas</h1>
+<div class="mangas">
+    <div class="cards-container">
+        <div class="class">
+            <h2>Manga 1 </h2>
+            <p> This is manga 1 </p>
+        </div>
+        <div class="class">
+            <h2>Manga 2</h2>
+            <p> This is manga 2 </p>
+
+        </div>
+        <div class="class">
+            <h2>Manga 3</h2>
+            <p> This is manga 3 </p>
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

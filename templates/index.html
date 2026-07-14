@@ -3,17 +3,19 @@
 {% block content %}
 
 <div class="spacer-vertical"></div>
-<p>i am harsha and just trying to figure things out. a huge vocaloid fan (especially teto) and gaming. currently
-    learning backend development</p>
+<p>i am <span class="text-accent">/hɑːrʃə/ </span><span class="text-muted">(abstract noun: happniess)</span> and just trying to figure things out. a huge <a href="http://vocaloid.urbanup.com/17326165" target="_blank" class="button-link-accent">vocaloid</a> fan (especially <span
+        class="text-accent">teto</span>) and gaming. currently
+    learning <span class="text-accent">backend dev</span> in <span class="text-accent">go</span>.</p>
 
 <div class="spacer-vertical"></div>
 
 <br>
 <div style="display: flex; align-items: center; gap: 20px;">
 
-    <a href="https://github.com/haarshmap" class="button-link">git</a>
-    <a href="https://in.linkedin.com/in/harsha-pandla-8b8040413" class="button-link">linkedin</a>
+    <a href="https://github.com/haarshmap" class="button-link-accent">git</a>
+    <a href="https://in.linkedin.com/in/harsha-pandla-8b8040413" class="button-link-accent">linkedin</a>
 </div>
+
 <div class="spacer-vertical"></div>
 <div class="spacer-vertical"></div>
 
@@ -37,19 +39,51 @@
 
 <h3> projects </h3>
 <p class="text"> projects ive worked on. see all of them <a href="https://github.com/haarshmap" target="_blank"
-        class="button-link">here </a> </p>
-<div class="vertical-spacer"></div>
-<ul>
+        class="button-link-accent">here </a> </p>
+<div class="spacer-vertical"></div>
+<ul style="margin: 0 20px;">
     <li>
-        <a href="https://github.com/haarshmap/bookie" target="_blank" class="button-link">bookie:</a> <span
+        <a href="https://github.com/haarshmap/go-url" target="_blank" class="button-link-accent">go-url:</a> <span
+            class="text-muted">[wip] slightly complex url shortener made in golang and sqlite</span>
+    </li>
+    <li>
+        <a href="https://github.com/haarshmap/bookie" target="_blank" class="button-link-accent">bookie:</a> <span
             class="text-muted"> simple rest api built with golang and sqlite </span>
     </li>
     <li>
-        <a href="https://github.com/haarshmap/scissors-8" target="_blank" class="button-link">scissors-8:</a> <span
-            class="text-muted"> rock paper scissors made in pico8 </span>
+        <a href="https://github.com/haarshmap/scissors-8" target="_blank" class="button-link-accent">scissors-8:</a>
+        <span class="text-muted"> rock paper scissors made in pico8 </span>
     </li>
 </ul>
 <br>
-<img src="twto.jpg" style="max-width: 100%;" alt="twto didnt load because she found more baguettes">
+<img src="twto.jpg" style="width: 100%;" alt="twto didnt load because she found more baguettes">
+<div class="spacer-vertical"></div>
+<div class="blockquote">
+    <p> when life gives you lemon, buy some <span style="color: #d09079;">baguettes</span>, <span style="color: #B8860B;">machine</span></p>
+    <div style="display: flex; justify-content: end;"> 
+        <a class="button-link-accent" href="https://www.youtube.com/watch?v=KpSez2wtsEY" target="_blank"
+            style="text-align: right;">- kasane gabriel</a>
+    </div>
+</div>
 
-{% endblock content %}
+<br>
+
+<div class="spotify-section">
+    <iframe
+        data-testid="embed-iframe"
+        style="border-radius: 0;"
+        src="https://open.spotify.com/embed/track/1H2pPtoPS8kNlqCN7HfT6g?utm_source=generator&si=28aea086882448f1"
+        height="152"
+        frameborder="0"
+        allowfullscreen
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy">
+    </iframe>
+
+    <p class="spotify-caption">
+        <span class="desktop-arrow">&lt;--</span>
+        <span class="mobile-arrow">↑</span>
+        (best song of all time btw)
+    </p>
+</div>
+{% endblock content %}lorem ipsum

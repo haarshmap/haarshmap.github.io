@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+.blog-content img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 2rem auto;
+}
+.blog-content audio {
+  display: block;
+  width: 100%;                 
+}
+
+</style>
+
+<br>
+<h1 class="title">
+  {{ page.title }}
+</h1>
+<br>
+<p class="subtitle"><strong>{{ page.date |  date(format="%d-%m-%Y") }}</strong></p>
+<br>
+<div class="blog-content">
+    {{ page.content | safe }}
+</div>
+{% endblock content %}

@@ -1,0 +1,395 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+  #media-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    transition: opacity 0.2s ease;
+  }
+
+  .media-card {
+    position: relative;
+  }
+
+  .media-poster {
+    position: relative;
+  }
+
+  .media-image {
+    width: 100%;
+    display: block;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+  }
+
+  .media-title {
+    color: #a5a8a6
+  }
+
+  .media-rating {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+
+    margin: 0;
+    padding: 4px 7px;
+
+    background: #282a2e;
+    color: #cc6666;
+
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  #media-container.filtering {
+    opacity: 0;
+  }
+
+  @media (max-width: 768px) {
+    #media-container {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .media-rating {
+      bottom: 6px;
+      right: 6px;
+      padding: 4px 6px;
+      font-size: 0.85rem;
+    }
+
+    .tooltip {
+      font-size: 0.85rem;
+      max-width: 180px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    #media-container {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .media-rating {
+      bottom: 5px;
+      right: 5px;
+      padding: 3px 5px;
+      font-size: 0.75rem;
+    }
+
+    .tooltip {
+      font-size: 0.75rem;
+      max-width: 140px;
+    }
+
+    .category-buttons {
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .category-buttons button {
+      padding: 6px 10px;
+      font-size: 0.8rem;
+    }
+  }
+</style>
+
+<br>
+<h1>{{ section.title }}</h1>
+<br>
+
+<h2 class="text-accent">stuff i consume or loved</h2>
+<br>
+<div class="category-buttons">
+  <button onclick="filterMedia('all')" class="button-primary">All</button>
+  <button onclick="filterMedia('anime')" class="button-primary">Anime</button>
+  <button onclick="filterMedia('manga')" class="button-primary">Manga</button>
+  <button onclick="filterMedia('games')" class="button-primary">Games</button>
+</div>
+
+<template id="media-template">
+  <div class="media-card">
+    <div class="media-poster">
+      <span class="tooltip-wrapper" data-tooltip="">
+        <img class="media-image" src="" alt="">
+      </span>
+      <p class="media-rating"></p>
+    </div>
+    <p class="media-title"></p>
+  </div>
+</template>
+
+<br>
+<div id="media-container"></div>
+
+<script>
+  const template = document.querySelector("#media-template");
+  const container = document.querySelector("#media-container");
+
+  const media = [
+    {
+      image: "https://cdn.myanimelist.net/images/anime/1302/94882.jpg",
+      title: "Grand Blue Dreaming",
+      rating: 8.5,
+      tooltip: "scuba diving club's realistic potrayal",
+      type: "anime"
+    },
+    {
+      image: "https://cdn.myanimelist.net/images/anime/1795/95088.jpg",
+      title: "Violet Evergarden",
+      rating: 9.1,
+      tooltip: "the greatest tearjerker",
+      type: "anime"
+    },
+    {
+      image: "https://cdn.myanimelist.net/images/anime/1404/98182.jpg",
+      title: "Evangelion",
+      rating: 9.5,
+      tooltip: "shinji, don't get in the eva",
+      type: "anime"
+    },
+    {
+      image: "https://cdn.myanimelist.net/images/anime/1565/154933.jpg",
+      title: "Ramparts of Ice",
+      rating: 8.8,
+      tooltip: "misunderstanding galore but hella realistic",
+      type: "anime"
+    },
+    {
+      image: "https://cdn.myanimelist.net/images/manga/1/263980.jpg",
+      title: "You and I are Polar Opposites",
+      rating: 8.7,
+      tooltip: "pretty good and wholesome",
+      type: "manga"
+    },
+    {
+      image: "https://cdn.myanimelist.net/images/manga/3/66993.jpg",
+      title: "Our Happy Hours",
+      rating: 9.1,
+      tooltip: "such a short but tragic manga",
+      type: "manga"
+    },
+    {
+      image: "https://cdn.myanimelist.net/images/manga/2/310988.jpg",
+      title: "They are still being shaken this morning",
+      rating: 9.3,
+      tooltip: "its literal charcoal ash with how slow it is",
+      type: "manga"
+    },
+    {
+      image: "https://cdn.myanimelist.net/images/manga/3/267255.jpg",
+      title: "Smoking behind the supermarket",
+      rating: 9.1,
+      tooltip: "one of the few slow-burns i genuinely like",
+      type: "manga"
+    },
+    {
+      image: "https://static.comix.to/a010/i/d/09/68de8b0266a99@280.jpg",
+      title: "You Are a Four-Leaf Clover",
+      rating: 8.8,
+      tooltip: "the romcom which is full of despair",
+      type: "manga"
+    },
+    {
+      image: "https://static.mfcdn.nl/bbfe/i/1/dc/676e708851770241e56d44982d4247d9.jpg",
+      title: "Haimiya Is Scary Cute",
+      rating: 8.6,
+      tooltip: "pretty nice story and chill",
+      type: "manga"
+    },
+    {
+      image: "https://static.comix.to/5913/i/3/62/6a9ce414edb0d@280.jpg",
+      title: "The Guy She Was Interested In Wasn't a Guy at All",
+      rating: 8.6,
+      tooltip: "the chapters are too short but the artstyle lowkey peak",
+      type: "manga"
+    },
+    {
+      image: "https://cdn.myanimelist.net/images/anime/4/5123.jpg",
+      title: "Gurren Lagann",
+      rating: 9.5,
+      tooltip: "MY DRILL IS THE DRILL, THAT SHALL PIERCE THE HEAVENS!",
+      type: "anime"
+    },
+    {
+      image: "https://static.comix.to/451f/i/6/0e/6aabfc7e08bff@280.jpg",
+      title: "Horimiya",
+      rating: 9.1,
+      tooltip: "great nuance and pretty wholesome",
+      type: "manga"
+    },
+    {
+      image: "https://static.comix.to/1489/i/5/58/68e0b777c5a44@280.jpg",
+      title: "I Think I Turned My Childhood Friend Into a Girl",
+      rating: 9.0,
+      tooltip: "idc its peak",
+      type: "manga"
+    },
+    {
+      image: "https://cdn.myanimelist.net/images/manga/2/213271.jpg",
+      title: "We're new to this",
+      rating: 8.6,
+      tooltip: "pretty wholesome and peak imo",
+      type: "manga"
+    },
+    {
+      image: "https://static.comix.to/f3fb/i/f/4d/68e4894fa0a10@280.jpg",
+      title: "I'm Worried About My Girlfriend, Who Used to be Covered in Bruises",
+      rating: 9.6,
+      tooltip: "genuine peak and wholesomeness also",
+      type: "manga"
+    },
+    {
+      image: "https://static.mfcdn.nl/a340/i/6/60/60ff8620de3ed3ecd18d47efd3f997e7.jpg",
+      title: "My Crush At Work",
+      rating: 9.1,
+      tooltip: "one of the best office romance",
+      type: "manga"
+    },
+    {
+      image: "https://cdn.myanimelist.net/images/anime/1879/155958.jpg",
+      title: "I Want to End This Love Game",
+      rating: 8.7,
+      tooltip: "pretty great childhood friends romance",
+      type: "manga"
+    },
+    {
+      image: "https://cdn.myanimelist.net/images/anime/1122/96435.jpg",
+      title: "A silent voice",
+      rating: 9.3,
+      tooltip: "kinda bittersweet",
+      type: "anime"
+    },
+    {
+      image: "https://static.comix.to/0b5b/i/f/86/6a9d16dbaf01d@280.jpg",
+      title: "The Moon on A Rainy Night",
+      rating: 8.6,
+      tooltip: "it's peak, but goddamn the misunderstandings are insane",
+      type: "manga"
+    },
+    {
+      image: "https://cdn.cloudflare.steamstatic.com/steam/apps/631510/library_600x900.jpg",
+      title: "Devil May Cry 3",
+      rating: 8.8,
+      tooltip: "crimson makes this game even more peak",
+      type: "games"
+    },
+    {
+      image: "https://cdn.cloudflare.steamstatic.com/steam/apps/1237970/library_600x900.jpg",
+      title: "Titanfall 2",
+      rating: 9.3,
+      tooltip: "big robos go boom",
+      type: "games"
+    },
+    {
+      image: "https://images-ext-1.discordapp.net/external/tKGpsI7FUbES3UET9XEkH--R0GagOiVxM4XMLmrhhog/https/shared.akamai.steamstatic.com/store_item_assets/steam/apps/4515660/24f90b6e264a17c2495a86b54861d56e198857e2/library_capsule_2x.jpg?format=webp&width=534&height=801",
+      title: "Control, I'm Not Coming Back",
+      rating: 10,
+      tooltip: "the best 45 minutes of my life",
+      type: "games"
+    },
+    {
+      image: "https://cdn.cloudflare.steamstatic.com/steam/apps/601150/library_600x900.jpg",
+      title: "Devil May Cry 5",
+      rating: 8.7,
+      tooltip: "devil may fly with how the combos look",
+      type: "games"
+    },
+    {
+      image: "https://cdn.cloudflare.steamstatic.com/steam/apps/504230/library_600x900.jpg",
+      title: "Celeste",
+      rating: 9.5,
+      tooltip: "got me into pixel art",
+      type: "games"
+    },
+    {
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT15sCUIZWiOldNBvBvLsId-LPLn21VTgu4IyjHx9jAFCfDL-JO_tec7OKQ&s=10",
+      title: "Hollow Knight",
+      rating: 10,
+      tooltip: "its just peak, no comments",
+      type: "games"
+    },
+    {
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgMt2F2y_tfrSC4cI2T5Cm3fu4P41V7zuwQttOVdn5Qk5j127eyU7jtSw&s=10",
+      title: "Hollow Knight Silksong",
+      rating: 9.5,
+      tooltip: "hope savage beastly is rotting in hell",
+      type: "games"
+    },
+    {
+      image: "https://cdn.loaded.com/500x706/media/catalog/product/n/e/needy_girl_overdose_pc.png",
+      title: "Needy Streamer Overload",
+      rating: 8.5,
+      tooltip: "keeping ame alive is a sisyphean task",
+      type: "games"
+    },
+    {
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGMhY8xRfLtqadnFJMXGMg2NAcxq-BzE0LxnFgZJV1yQ&s=10",
+      title: "Hades",
+      rating: 9.1,
+      tooltip: "peak roguelike as long as you ignore the actual lore",
+      type: "games"
+    },
+    {
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEEzmXgLxdpj0Z6t-zVJJo9ju8VomSVDAQdFGOmX33dw&s=10",
+      title: "Balatro",
+      rating: 10,
+      tooltip: "big number go boom",
+      type: "games"
+    },
+    {
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0Wh2yRqO3-BOrL7Ox9KKdAPU6ewNFxRRZMEAmpvD06g&s=10",
+      title: "Pokemon Black 2",
+      rating: 8.5,
+      tooltip: "probably the best 2.5D from its era",
+      type: "games"
+    },
+    {
+      image: "https://upload.wikimedia.org/wikipedia/en/e/e8/Dead_as_Disco_artwork.jpg?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=original",
+      title: "Dead As Disco",
+      rating: 8.7,
+      tooltip: "pretty good beat em up with rythm",
+      type: "games"
+    },
+  ];
+
+  function renderMedia(category = "all") {
+    container.replaceChildren();
+
+    media.forEach(item => {
+      if (category !== "all" && item.type !== category) {
+        return;
+      }
+
+      const card = template.content.cloneNode(true);
+
+      card.querySelector(".media-image").src = item.image;
+      card.querySelector(".media-image").alt = item.title;
+      card.querySelector(".media-title").textContent = item.title;
+      card.querySelector(".media-rating").textContent = item.rating;
+
+      card.querySelector(".tooltip-wrapper").setAttribute(
+        "data-tooltip",
+        item.tooltip
+      );
+
+      container.appendChild(card);
+    });
+  }
+
+  function filterMedia(category) {
+    container.classList.add("filtering");
+
+    setTimeout(() => {
+      renderMedia(category);
+      container.classList.remove("filtering");
+    }, 200);
+  }
+
+  renderMedia();
+</script>
+
+{% endblock content %}

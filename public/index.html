@@ -1,6 +1,29 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
 
-{% block content %}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title class="title" id="title">harsha</title>
+  <link rel="icon" type="image/png" href="https://github.com/haarshmap.png">
+  <link rel="stylesheet" href="https://minima.namishh.com/dist/minima.min.css" />
+  <script defer src="https://minima.namishh.com/dist/minima.min.js"></script>
+  <link rel="stylesheet" href="https://harsha.is-a.dev/sass/init.css">
+</head>
+<script src="https://louisabraham.github.io/nekojs/neko.js" data-autostart></script>
+
+<body>
+  <div class="main">
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+
+      <div style="display: flex; align-items: center; gap: 20px;">
+        <img src="https://github.com/haarshmap.png" style="width: 36px; height: 36px;" alt="">
+        <a href="/" class="button-link">harsha</a>
+      </div>
+      <button class="button-primary theme-btn" onclick="toggleTheme()"> theme </button>
+    </div>
+    <div class="content">
+      
 
 <div class="spacer-vertical"></div>
 <p>i am <span class="text-accent">/hɑːrʃə/ </span><span class="text-muted">(abstract noun: happiness)</span> and just
@@ -15,7 +38,6 @@
   <a href="https://github.com/haarshmap" class="button-link-accent">git</a>
   <a href="blog.html" class="button-link-accent">blogs</a>
   <a href="pixel.html" class="button-link-accent">pixels</a>
-  <a href="media.html" class="button-link-accent">media</a>
 </div>
 
 <div class="spacer-vertical"></div>
@@ -78,12 +100,28 @@
   </p>
 
 </div>
+
 <br>
-<div>
-  <h2 class="text-accent"> to contact me </h2>
-  <p>email: <a href="mailto:harshmap0@gmail.com" class="text-muted"
-      style="text-decoration: none;">harshmap0@gmail.com</a>
-  </p>
-  <p>discord: <span class="text-muted">harshmap</span></p>
-</div>
-{% endblock content %}
+<h2 class="text-accent"> to contact me </h2>
+<p>email: <a href="mailto:harshmap0@gmail.com" class="text-muted" style="text-decoration: none;">harshmap0@gmail.com</a>
+</p>
+<p>discord: <span class="text-muted">harshmap</span></p>
+
+
+
+      <br>
+      <p class="text">
+        made with <a href="https://getzola.org" class="button-link-accent">zola</a> and <a class="button-link-accent"
+          href="https://minima.namishh.com">minima</a>
+      </p>
+    </div>
+  </div>
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      html.dataset.theme = html.dataset.theme === "dark" ? "light" : "dark";
+    }
+  </script>
+</body>
+
+</html>

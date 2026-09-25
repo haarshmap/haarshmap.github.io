@@ -4,19 +4,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title class="title" id="title">
-    {% if page %}
-    {{ page.title }}
-    {% elif section %}
-    {{ section.title }}
-    {% else %}
-    {{ config.title }}
-    {% endif %}
-  </title>
+  <title class="title" id="title">harsha</title>
   <link rel="icon" type="image/png" href="https://github.com/haarshmap.png">
   <link rel="stylesheet" href="https://minima.namishh.com/dist/minima.min.css" />
   <script defer src="https://minima.namishh.com/dist/minima.min.js"></script>
-  <link rel="stylesheet" href="{{ get_url(path='init.css') | safe }}">
+  <link rel="stylesheet" href="https://harsha.is-a.dev/sass/init.css">
 </head>
 <script src="https://louisabraham.github.io/nekojs/neko.js" data-autostart></script>
 
@@ -31,7 +23,20 @@
       <button class="button-primary theme-btn" onclick="toggleTheme()"> theme </button>
     </div>
     <div class="content">
-      {% block content %} {% endblock content %}
+      
+<br>
+<h1 class="title">
+  blogs on stuff that i thought looked fun
+</h1>
+<ul>
+  <br>
+  
+  <li><a href="https://harsha.is-a.dev/blog/sqlcexp/" class="button-link-accent">The sqlc experience</a></li>
+  
+  <li><a href="https://harsha.is-a.dev/blog/openutau/" class="button-link-accent">The OpenUtau opener</a></li>
+  
+</ul>
+
 
       <br>
       <p class="text">
@@ -41,22 +46,9 @@
     </div>
   </div>
   <script>
-    const savedTheme = localStorage.getItem("theme");
-
-    if (savedTheme) {
-      document.documentElement.dataset.theme = savedTheme;
-    }
-
     function toggleTheme() {
       const html = document.documentElement;
-
-      const newTheme =
-        html.dataset.theme === "dark"
-          ? "light"
-          : "dark";
-
-      html.dataset.theme = newTheme;
-      localStorage.setItem("theme", newTheme);
+      html.dataset.theme = html.dataset.theme === "dark" ? "light" : "dark";
     }
   </script>
 </body>

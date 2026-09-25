@@ -1,0 +1,65 @@
+@font-face {
+  font-family: ArimoFont;
+  src: url(/fonts/Arimo-Regular.ttf);
+}
+
+@font-face {
+  font-family: ArimoFont;
+  src: url(/fonts/Arimo-Bold.ttf);
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: ArimoFont;
+  src: url(/fonts/Arimo-Italic.ttf);
+  font-style: italic;
+}
+
+@font-face {
+  font-family: ArimoFont;
+  src: url(/fonts/Arimo-BoldItalic.ttf);
+  font-weight: bold;
+  font-style: italic;
+}
+
+html {
+  font-family: ArimoFont;
+  font-size: 13px;
+  color: white;
+}
+
+table {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.refresh {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+td {
+  vertical-align: middle;
+}
+
+td#cover {
+  padding-right: 5px;
+}
+
+td#date {
+  font-style: italic;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+a#track {
+  font-weight: bold;
+}
+
+a:hover {
+  color: #6DDAB9;
+}

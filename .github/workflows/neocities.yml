@@ -22,7 +22,7 @@ jobs:
       - run: zola build
 
       - name: deploy to neocities
-        uses: bcomnes/deploy-to-neocities@2
+        uses: bcomnes/deploy-to-neocities@v2
         with:
           api_token: ${{ secrets.NEOCITES_API_KEY }}
           dist_dir: public

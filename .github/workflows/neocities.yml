@@ -1,0 +1,29 @@
+name: neocities-deploy
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: deploy-to-neocities
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: install and build
+        uses: taiki-e/install-action@zola
+
+      - run: zola build
+
+      - name: deploy to neocities
+        uses: bcomnes/deploy-to-neocities@2
+        with:
+          api_token: ${{ secrets.NEOCITES_API_KEY }}
+          dist_dir: public
+          cleanup: false

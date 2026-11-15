@@ -32,6 +32,14 @@ jobs:
       - name: Build
         run: zola build
 
+      - name: Deploy to Neocities
+        uses: bcomnes/deploy-to-neocities@v2
+        with:
+          api_key: ${{ secrets.NEOCITIES_API_KEY }}
+          dist_dir: public
+          cleanup: true
+          neocities_supporter: false
+
       - uses: actions/upload-pages-artifact@v4
         with:
           path: public

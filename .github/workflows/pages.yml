@@ -1,3 +1,4 @@
+
 name: Deploy Zola site
 
 on:
@@ -21,16 +22,37 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/configure-pages@v5
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
 
-      - uses: taiki-e/install-action@v2
+      - name: Install Zola
+        uses: taiki-e/install-action@v2
         with:
           tool: zola
 
-      - name: Build
+      - name: Build site
         run: zola build
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: zola-site
+          path: public/
+          retention-days: 1
+
+  deploy-neocities:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: zola-site
+          path: public/
 
       - name: Deploy to Neocities
         uses: bcomnes/deploy-to-neocities@v2
@@ -40,23 +62,26 @@ jobs:
           cleanup: true
           neocities_supporter: false
 
-      - uses: actions/upload-pages-artifact@v4
-        with:
-          path: public
-
-  deploy:
+  deploy-github-pages:
     needs: build
-
-    permissions:
-      pages: write
-      id-token: write
+    runs-on: ubuntu-latest
 
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
 
-    runs-on: ubuntu-latest
-
     steps:
-      - id: deployment
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: zola-site
+          path: public/
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: public/
+
+      - name: Deploy to GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4

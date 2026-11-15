@@ -35,7 +35,7 @@ jobs:
       - name: Deploy to Neocities
         uses: bcomnes/deploy-to-neocities@v2
         with:
-          api_key: ${{ secrets.NEOCITIES_API_KEY }}
+          api_token: ${{ secrets.NEOCITIES_API_KEY }}
           dist_dir: public
           cleanup: true
           neocities_supporter: false
